@@ -222,6 +222,7 @@ We are interested in "main" and "app2" and their DNS names are `arcadia-main` an
 
 15.1  We will now add the components that represent the workload for the main app that traffic will be sent to.
 Click “Add New” on the “Components” column and fill the data as described bellow
+
 > Name: arcadia-main-component
 > Click Next
 > Workload Group Name: arcadia-main-wl
@@ -230,6 +231,7 @@ Click “Add New” on the “Components” column and fill the data as describe
 
 15.2 Add the second component that represents the workload for app2
 Click “Add New” on the “Components” column and fill the data as described bellow
+
 > Name: arcadia-app2-component
 > Workload Group Name: arcadia-app2-wl
 > URI: http://arcadia-app2
