@@ -213,7 +213,8 @@ We are interested in "main" and "app2" and their DNS names are `arcadia-main` an
 ##### “N” -> “Services” -> “APIs” -> Click “arcadia-api” -> Click “Add Published API”
 ![](images/050_050_1.png)
 
-> Published API Name: arcadia-pub-api  
+> Published API Name: arcadia-published-api  
+> Click Next  
 > Environment: prod  
 > Application: arcadia-api  
 > Gateways: api.arcadia.azure.cloud  
