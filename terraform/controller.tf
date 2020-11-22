@@ -52,7 +52,7 @@ resource "azurerm_virtual_machine" "example" {
       swapoff -a
       ufw disable
       apt-get install awscli jq -y
-      wget https://sorinnginx.s3.eu-central-1.amazonaws.com/controller-installer-3.4.0.tar.gz -O /home/ubuntu/controller.tar.gz
+      wget https://sorinnginx.s3.eu-central-1.amazonaws.com/controller-installer-3.7.0.tar.gz -O /home/ubuntu/controller.tar.gz
       tar zxvf /home/ubuntu/controller.tar.gz -C /home/ubuntu/
       host_ip=$(curl -s ifconfig.me)
       export HOME=/home/ubuntu
