@@ -209,39 +209,34 @@ Click the "Pen" icon of the "Arcadia API" and you can see a list of the defined 
 
 We are interested in "main" and "app2" and their DNS names are `arcadia-main` and `arcadia-app2`.
 
-15. Create the workloads:
-##### "N" -> "Services" -> "APIs" -> "Workload Groups" -> "Create a Workload Group"
-Create the configuration of each of the workloads:  
-
-> Name: arcadia-app2  
-> Click Save  
-
-Add a Workload:
-> First input: arcadia-app2  
-> Port: 80  
-
-Repeat the steps above for `arcadia-main`. 
-   
-16. Add a Published API:  
-
-Return to "N" -> "Services"-> "APIs" -> "API Definitions" -> "Arcadia API" -> "Pen" Icon -> "Add a Published API":
+15. Publish the API
+##### “N” -> “Services” -> “APIs” -> Click “arcadia-api” -> Click “Add Published API”
+![](images/050_050_1.png)
 
 > Published API Name: arcadia-pub-api  
 > Environment: prod  
 > Application: arcadia-api  
 > Gateways: api.arcadia.azure.cloud  
+> Click Next
 
-Save  
 
-17. Click on 'Add a route':  
+15.1  We will now add the components that represent the workload for the main app that traffic will be sent to.
+Click “Add New” on the “Components” column and fill the data as described bellow
+> Name: arcadia-main-component
+> Click Next
+> Workload Group Name: arcadia-main-wl
+> URI: http://arcadia-main
+> Click Submit
 
-> All URLs that start with /api - assign the "arcadia-app2" workload  
-> All URLs that start with /trading - assign the "arcadia-main" workload
+15.2 Add the second component that represents the workload for app2
+Click “Add New” on the “Components” column and fill the data as described bellow
+> Name: arcadia-app2-component
+> Workload Group Name: arcadia-app2-wl
+> URI: http://arcadia-app2
+> Click Submit
 
-After adding each route click Save.  
-
-When done click "Publish".  
-
+16. Move the routes that start with “/api” in the “Unrouted” to the “Components” column under the “arcadia-app2-component”. Move the remaining routes under “arcadia-main-component” and click Submit
+![](images/050_050_2.png)
 
 Once the public API has been published - we need to take similar steps for the internal APIs that are accessing the Arcadia Backend service.  
 
