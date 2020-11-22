@@ -221,20 +221,20 @@ We are interested in "main" and "app2" and their DNS names are `arcadia-main` an
 
 
 15.1  We will now add the components that represent the workload for the main app that traffic will be sent to.
-Click “Add New” on the “Components” column and fill the data as described bellow
+##### Click “Add New” on the “Components” column and fill the data as described bellow
 
-> Name: arcadia-main-component
-> Click Next
-> Workload Group Name: arcadia-main-wl
-> URI: http://arcadia-main
-> Click Submit
+> Name: arcadia-main-component  
+> Click Next  
+> Workload Group Name: arcadia-main-wl  
+> URI: http://arcadia-mai  
+> Click Submit  
 
 15.2 Add the second component that represents the workload for app2
-Click “Add New” on the “Components” column and fill the data as described bellow
+##### Click “Add New” on the “Components” column and fill the data as described bellow
 
-> Name: arcadia-app2-component
-> Workload Group Name: arcadia-app2-wl
-> URI: http://arcadia-app2
+> Name: arcadia-app2-component  
+> Workload Group Name: arcadia-app2-wl  
+> URI: http://arcadia-app2  
 > Click Submit
 
 16. Move the routes that start with “/api” in the “Unrouted” to the “Components” column under the “arcadia-app2-component”. Move the remaining routes under “arcadia-main-component” and click Submit
