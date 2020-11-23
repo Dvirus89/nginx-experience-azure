@@ -27,6 +27,8 @@ deployment.apps/nginx-ingress created
 service/nginx-ingress created
 </pre>
   
+* Ignore this error: unable to recognize "STDIN": no matches for kind "GlobalConfiguration" in version "k8s.nginx.org/v1alpha1"
+  
 2. Expose the Nginx Ingress Dashboard (copy and paste in the command line the bellow).
 <pre>
 cat << EOF | kubectl apply -f - 
