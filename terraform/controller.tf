@@ -51,7 +51,7 @@ resource "azurerm_virtual_machine" "example" {
       apt-get update
       swapoff -a
       ufw disable
-      apt-get install jq socat conntrack -y
+      apt-get install jq socat ebtables conntrack -y
       wget https://sorinnginx.s3.eu-central-1.amazonaws.com/controller-installer-3.7.0.tar.gz -O /home/ubuntu/controller.tar.gz
       tar zxvf /home/ubuntu/controller.tar.gz -C /home/ubuntu/
       host_ip=$(curl -s ifconfig.me)
