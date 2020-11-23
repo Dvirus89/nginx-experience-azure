@@ -243,7 +243,7 @@ We are interested in "main" and "app2" and their DNS names are `arcadia-main` an
 
 17. We have finished publishing the API all is left is to test it. Run the bellow curl command, you should receive a success message and if you go to the main Arcadia application and refresh the page you will be able to see the transaction we just did in the “Transfer History” section.
 
-> curl -k --location --request POST https://$microhost/api/rest/execute_money_transfer.php --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
+> curl -k --location --request POST https://micro-[RANDOM GENERATED NUMBER].uksouth.cloudapp.azure.com/api/rest/execute_money_transfer.php --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
 
 example output:
 {"name":"Alfredo", "status":"success","amount":"77", "currency":"EUR", "transid":"944962065", "msg":"The money transfer has been successfully completed "}
@@ -311,7 +311,7 @@ Attach the new Identity Provider to the APIs
 
 22. Check that the authentication is failing when not providing an API key
 
-> curl -k --location --request POST https://$microhost/api/rest/execute_money_transfer.php --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
+> curl -k --location --request POST https://micro-[RANDOM GENERATED NUMBER].uksouth.cloudapp.azure.com/api/rest/execute_money_transfer.php --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
 expected output:
 <pre>
 <html>
@@ -324,7 +324,7 @@ expected output:
 </pre>
 
 23. Try again but this time including the API key and the test-client value
-> curl -k --location --request POST https://$microhost/api/rest/execute_money_transfer.php --header "apikey: 1234567890" --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
+> curl -k --location --request POST https://micro-[RANDOM GENERATED NUMBER].uksouth.cloudapp.azure.com/api/rest/execute_money_transfer.php --header "apikey: 1234567890" --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
 
 example output:
 {"name":"Alfredo", "status":"success","amount":"77", "currency":"EUR", "transid":"944962065", "msg":"The money transfer has been successfully completed "}
