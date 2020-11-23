@@ -28,12 +28,9 @@ Applying mutual TLS authentication with NGINX
 #### [The Nginx Controller](guide/6controller.md)
 1.	Publish the application APIs with NGINX Micro Gateway
 Deploy and publish your API endpoints with NGINX Micro Gateway within your Kubernetes environment
-2.	Enhance APIs with JWT or Access Key token authentication
+2.	Enhance APIs Access Key token authentication
 Offload API authentication processes to your API gateway and concentrate 
-3.	Apply API rate limit and spike arrest 
-Protect your APIs from abuse and enforce monetization controls 
-4.	Monitor your application performance
-Discover your application performance, understand and react when application SLAs are impacted
+
  
 #### [Security](guide/7security.md)
 Secure you application with Nginx App Protect Web Application Firewall.           
