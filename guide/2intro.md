@@ -44,7 +44,7 @@ Cloud Shell enables access to a browser-based command-line experience built with
 
 7. Clone the Workshop Repo:
 ```
-git clone https://github.com/sorinboia/nginx-experience-azure
+git clone https://github.com/dvirus89/nginx-experience-azure
 cd nginx-experience-azure/
 ```
 
