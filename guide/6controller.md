@@ -241,39 +241,16 @@ We are interested in "main" and "app2" and their DNS names are `arcadia-main` an
 16. Move the routes that start with “/api” in the “Unrouted” to the “Components” column under the “arcadia-app2-component”. Move the remaining routes under “arcadia-main-component” and click Submit
 ![](images/050_050_2.png)
 
-Once the public API has been published - we need to take similar steps for the internal APIs that are accessing the Arcadia Backend service.  
+17. We have finished publishing the API all is left is to test it. Run the bellow curl command, you should receive a success message and if you go to the main Arcadia application and refresh the page you will be able to see the transaction we just did in the “Transfer History” section.
 
-18. Create the Environment:
+> curl -k --location --request POST https://$microhost/api/rest/execute_money_transfer.php --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
 
-##### "N" -> "Services" -> "Environments" -> "Create Environment"  
-> Name: internal  
-> Tags: internal
+example output:
+{"name":"Alfredo", "status":"success","amount":"77", "currency":"EUR", "transid":"944962065", "msg":"The money transfer has been successfully completed "}
 
-19. Create the Gateway:
 
-##### "N" -> "Services" -> "Gateways" -> "Create Gateway"
-> Name: backend   
-> Environment: internal  
-> Instance Refs: Select All  
-> Hostname: http://backend  
 
-20. Create the App:
-##### "N" -> "Services" -> "Apps" -> "Create App"
-> Name: arcadia-backend   
-> Environment: internal
-
-21. We could continue and import the OpenApi spec of the backend service as before, but now we want to present the load balancing configuration when developers don't have the specs at hand.
-
-##### "N" -> "Services" -> "Apps" -> "arcadia-backend" -> "Create Component"  
-> Name: backend-component  
-> Error Log: V   
-> Access Log: V    
-> Gateway Refs: backend  
-> URIs: /  
-> Workload Group Name: arcadia-backend    
-> URI: http://arcadia-backend  
-
-22. Instruct kubernetes to point to the microgateway instead of directly to the pods.
+REMOVE? 22. Instruct kubernetes to point to the microgateway instead of directly to the pods.
 <pre>
 cat << EOF | kubectl apply -f -
 apiVersion: v1
@@ -293,61 +270,64 @@ EOF
 </pre>
 
 
-23. Generate an API call to our published APIs.  
-:warning: Please note: you need to replace the `RANDOM GENERATED NUMBER` value with the specific value.
-
-Run the bellow curl command.
-<pre>
-Command:
-curl -k --location --request POST 'https://micro-[RANDOM GENERATED NUMBER].uksouth.cloudapp.azure.com/api/rest/execute_money_transfer.php' --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
-</pre>
-You should receive a success message and if you go to the main Arcadia application and refresh the page you will be able to see the transaction we just did in the "Transfer History" section.
-
 All looks good but we are not done, we should add some security to our API and enable access with access keys.
 
-24. Create an Identity Provider:
+19. Create an Identity Provider:
 
-##### "N" -> "Services" -> "APIs" -> "Identity Provider" -> "Create an Identity Provider"
+##### “N” -> “Services” -> “Identity Provider” -> “Create an Identity Provider”
 > Name: api-protect  
 > Environment: prod  
 > Type: API Key
 
-Create.  
+Create.
 
-> + Create a client  
-> Name: test  
+Under “API Clients”
+> Name: test-client  
+> Key: 1234567890  
+> Click: Submit
 
-Save.  
 
 Copy the key that was just created and save it for later.
 
-25. Authentication Policy:
+20. Go the the edit mode of APIs we have previously published
 
-##### "N" -> "Services" -> "APIs" -> "API Definitions" -> "Pen" icon next to "arcadia-pub-api"
+##### “N” -> “Services” -> “APIs” -> Click “arcadia-api” -> Click the edit icon
+![](images/050_060_1.png)
 
-> Add a policy  
-> Policy Type: Authentication  
-> Identity Provider: api-protect  
-> Credential Location apikey: HTTP request header  
-> Header name: apikey  
+Attach the new Identity Provider to the APIs
+> Click: “Routing”  
+> Click: the edit icon of “arcadia-app2-component” component security setting  
 
-Save then Publish.
+![](images/050_060_2.png)
 
-In order to check that all is working as expected, we will do the following:
+21. Click “Add Authentication” and fill in the fields
 
-26. Run the previous curl command. You should receive a 401 status code:
+> Identity Provider: api-protect 
+> Credential Location: Header  
+> Credentials Value: apikey  
+> Click: Done  
+> Click: Submit  
+> Click Submit again on the “Edit Published API” page
 
+22. Check that the authentication is failing when not providing an API key
+
+> curl -k --location --request POST https://$microhost/api/rest/execute_money_transfer.php --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
+expected output:
 <pre>
-curl -k --location --request POST 'https://micro-[RANDOM GENERATED NUMBER].uksouth.cloudapp.azure.com/api/rest/execute_money_transfer.php' --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
+<html>
+<head><title>401 Authorization Required</title></head>
+<body>
+<center><h1>401 Authorization Required</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
 </pre>
 
-27. Now we will run the same command but include the "apikey" header with the API key we previously generated and the transaction will succeed again.  
-:warning: Please note: you need to replace the IP address of the `microgateway` service and the API key value you saved earlier.  
+23. Try again but this time including the API key and the test-client value
+> curl -k --location --request POST https://$microhost/api/rest/execute_money_transfer.php --header "apikey: 1234567890" --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
 
-<pre>
-export apikey=[REPLACE WITH THE PREVIOUSLY SAVED API KEY]
-curl -k --location --request POST 'https://micro-[RANDOM GENERATED NUMBER].uksouth.cloudapp.azure.com/api/rest/execute_money_transfer.php' --header "apikey: $apikey" --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
-</pre>
+example output:
+{"name":"Alfredo", "status":"success","amount":"77", "currency":"EUR", "transid":"944962065", "msg":"The money transfer has been successfully completed "}
 
 
 ### Summary
