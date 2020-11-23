@@ -311,7 +311,7 @@ Attach the new Identity Provider to the APIs
 
 22. Check that the authentication is failing when not providing an API key
 
-> curl -k --location --request POST https://micro-[RANDOM GENERATED NUMBER].uksouth.cloudapp.azure.com/api/rest/execute_money_transfer.php --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
+> curl -k --location --request POST https://micro-[RANDOM GENERATED NUMBER].uksouth.cloudapp.azure.com/api/rest/execute_money_transfer.php --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'  
 expected output:
 <pre>
 <html>
