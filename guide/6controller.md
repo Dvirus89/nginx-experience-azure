@@ -302,7 +302,7 @@ Attach the new Identity Provider to the APIs
 
 21. Click “Add Authentication” and fill in the fields
 
-> Identity Provider: api-protect 
+> Identity Provider: api-protect  
 > Credential Location: Header  
 > Credentials Value: apikey  
 > Click: Done  
@@ -326,7 +326,7 @@ expected output:
 23. Try again but this time including the API key and the test-client value
 > curl -k --location --request POST https://micro-[RANDOM GENERATED NUMBER].uksouth.cloudapp.azure.com/api/rest/execute_money_transfer.php --header "apikey: 1234567890" --header 'Content-Type: application/json' --data-raw '{"amount":"77","account":"2075894","currency":"EUR","friend":"Alfredo"}'
 
-example output:
+example output:  
 {"name":"Alfredo", "status":"success","amount":"77", "currency":"EUR", "transid":"944962065", "msg":"The money transfer has been successfully completed "}
 
 
